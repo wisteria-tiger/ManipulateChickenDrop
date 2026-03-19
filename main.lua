@@ -18,8 +18,9 @@ end
 
 function love.load()
     gem = love.graphics.newImage("assets/gemBlue.png")
-    --backgroundImage = love.graphics.newImage("assets/background.png")
     powerUpHammer = love.graphics.newImage("assets/hammer.png")
+    backgroundImage = love.graphics.newImage("assets/background.png")
+    
 
     math.randomseed(os.time())
     math.random(); math.random(); math.random()
@@ -77,11 +78,10 @@ end
 --DRAW
 -------------------------------------------------
 function love.draw()
-    love.graphics.draw(powerUpHammer, 250, 250)
-    --love.graphics.draw(backgroundImage, 0, 0)
+    love.graphics.draw(backgroundImage, 0, 0)
     --draw each chicken at their respective x and y
     for i, v in ipairs(startx) do
         love.graphics.draw(gem, startx[i], starty[i])
     end
-    
+    love.graphics.draw(powerUpHammer, 250, 250)
 end
