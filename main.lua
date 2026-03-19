@@ -37,7 +37,8 @@ function love.load()
                 0 - math.random(gem:getHeight(), gem:getHeight() * 2)}
 
     hammerX = math.random(0, love.graphics.getWidth() - powerUpHammer:getWidth())
-    hammerY = math.random(0, love.graphics.getHeight())
+    hammerY = math.random(0, love.graphics.getHeight() - powerUpHammer:getHeight())
+    powerFlag = false;
 end
 -------------------------------------------------
 --MOUSE PRESS
@@ -58,6 +59,23 @@ starty[i] and y <= starty[i] + gem:getHeight() then
                 2) * -1
             end
         end
+        if x >= hammerX and x <= hammerX + powerUpHammer:getWidth() and y >=
+hammerY and y <= hammerY + powerUpHammer:getHeight() then
+                --print("in bounds")
+                math.randomseed(os.time())
+                math.random(); math.random(); math.random()
+                hammerX = (0 - powerUpHammer:getWidth())
+                hammerY = (0 - powerUpHammer:getHeight())
+                powerFlag = true
+        end
+    end
+end
+
+function updateGemSpeed(dt)
+    if powerFlag == true then
+        for i, v in ipairs(starty) do
+        starty[i] = starty[i] + 120 * dt
+        end
     end
 end
 -------------------------------------------------
@@ -72,6 +90,7 @@ function love.update(dt)
         end
         --chickens move down
         starty[i] = starty[i] + 80 * dt
+        updateGemSpeed(dt)
     end
 end
 -------------------------------------------------
@@ -83,5 +102,5 @@ function love.draw()
     for i, v in ipairs(startx) do
         love.graphics.draw(gem, startx[i], starty[i])
     end
-    love.graphics.draw(powerUpHammer, 250, 250)
+    love.graphics.draw(powerUpHammer, hammerX, hammerY)
 end
