@@ -59,22 +59,24 @@ starty[i] and y <= starty[i] + gem:getHeight() then
                 2) * -1
             end
         end
-        if x >= hammerX and x <= hammerX + powerUpHammer:getWidth() and y >=
+            if x >= hammerX and x <= hammerX + powerUpHammer:getWidth() and y >=
 hammerY and y <= hammerY + powerUpHammer:getHeight() then
-                --print("in bounds")
+                --Spawns hammer power up at random position
                 math.randomseed(os.time())
                 math.random(); math.random(); math.random()
                 hammerX = (0 - powerUpHammer:getWidth())
                 hammerY = (0 - powerUpHammer:getHeight())
+                --Activates power up effect
                 powerFlag = true
-        end
+            end
     end
 end
 
+--Manages power up effect
 function updateGemSpeed(dt)
     if powerFlag == true then
         for i, v in ipairs(starty) do
-        starty[i] = starty[i] + 120 * dt
+        starty[i] = starty[i] + 40 * dt
         end
     end
 end
